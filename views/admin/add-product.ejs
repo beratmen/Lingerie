@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="min-h-screen">
+    <nav class="bg-white shadow">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <h1 class="text-xl font-bold text-pink-600">Admin Panel</h1>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <a href="/admin" class="text-gray-500 hover:text-gray-700">Back to Dashboard</a>
+            <a href="/auth/logout" class="text-gray-500 hover:text-gray-700">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <div class="px-4 py-6 sm:px-0">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Add New Product</h2>
+
+          <form action="/admin/products" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+              <input type="text" name="name" id="name" required
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+            </div>
+
+            <div>
+              <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+              <textarea name="description" id="description" rows="3" required
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"></textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <input type="number" name="price" id="price" step="0.01" required
+                    class="block w-full pl-7 pr-12 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                </div>
+              </div>
+
+              <div>
+                <label for="stockQuantity" class="block text-sm font-medium text-gray-700">Stock Quantity</label>
+                <input type="number" name="stockQuantity" id="stockQuantity" min="0" required
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+              <select name="category" id="category" required
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm rounded-md">
+                <option value="Bras">Bras</option>
+                <option value="Panties">Panties</option>
+                <option value="Sets">Sets</option>
+                <option value="Sleepwear">Sleepwear</option>
+                <option value="Accessories">Accessories</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Sizes</label>
+              <div class="mt-2 grid grid-cols-4 gap-2">
+                <% ['XS', 'S', 'M', 'L', 'XL', '32A', '32B', '32C', '34A', '34B', '34C', '36A', '36B', '36C'].forEach(function(size) { %>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="sizes" value="<%= size %>" class="form-checkbox h-4 w-4 text-pink-600">
+                    <span class="ml-2 text-sm text-gray-700"><%= size %></span>
+                  </label>
+                <% }); %>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Colors</label>
+              <div class="mt-2 grid grid-cols-3 gap-2">
+                <% ['Black', 'White', 'Nude', 'Pink', 'Red', 'Blue'].forEach(function(color) { %>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" name="colors" value="<%= color %>" class="form-checkbox h-4 w-4 text-pink-600">
+                    <span class="ml-2 text-sm text-gray-700"><%= color %></span>
+                  </label>
+                <% }); %>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Product Image</label>
+              <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div class="space-y-1 text-center">
+                  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <div class="flex text-sm text-gray-600">
+                    <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-pink-600 hover:text-pink-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500">
+                      <span>Upload a file</span>
+                      <input id="image" name="image" type="file" class="sr-only" accept="image/*" required>
+                    </label>
+                    <p class="pl-1">or drag and drop</p>
+                  </div>
+                  <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-end">
+              <button type="submit"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+                Add Product
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
